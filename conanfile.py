@@ -1,12 +1,11 @@
 from conans import ConanFile, ConfigureEnvironment
 from conans import tools
 import os
-import shutil
 
 
 class CryptoPPConan(ConanFile):
     name = "cryptopp"
-    version = "5.6.3"
+    version = "5.6.5"
     url = "https://github.com/riebl/conan-cryptopp"
     settings = "os", "compiler", "build_type", "arch"
     license = "Boost Software License 1.0"
@@ -14,15 +13,13 @@ class CryptoPPConan(ConanFile):
     default_options = "static=False", "shared=True"
 
     def source(self):
-        zipname = 'cryptopp563.zip'
+        zipname = 'cryptopp565.zip'
         url = 'http://cryptopp.com/%s' % zipname
-        sha256 = '9390670a14170dd0f48a6b6b06f74269ef4b056d4718a1a329f6f6069dc957c9'
+        sha256 = 'a75ef486fe3128008bbb201efee3dcdcffbe791120952910883b26337ec32c34'
         tools.download(url, zipname)
         tools.check_sha256(zipname, sha256)
         tools.unzip(zipname)
         os.unlink(zipname)
-        shutil.move('config.h', 'config.orig')
-        shutil.move('config.recommend', 'config.h')
 
     def build(self):
         env = ConfigureEnvironment(self.deps_cpp_info, self.settings)
