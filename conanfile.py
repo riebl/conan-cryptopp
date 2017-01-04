@@ -28,6 +28,8 @@ class CryptoPPConan(ConanFile):
             self.run('%s make dynamic' % env.command_line)
         else:
             self.run('%s make static' % env.command_line)
+        if self.scope.build_tests:
+            self.run('%s make test check' % env.command_line)
 
     def package(self):
         self.copy(pattern="*.h", dst="include/cryptopp", src=".")
