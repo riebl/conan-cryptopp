@@ -10,8 +10,8 @@ class CryptoPPConan(ConanFile):
     description = "Crypto++ Library is a free C++ class library of cryptographic schemes."
     settings = "os", "compiler", "build_type", "arch"
     license = "Boost Software License 1.0"
-    options = {"static": [True, False], "shared": [True, False]}
-    default_options = "static=False", "shared=True"
+    options = {"shared": [True, False]}
+    default_options = "shared=True"
 
     def source(self):
         zipname = 'cryptopp565.zip'
@@ -24,10 +24,10 @@ class CryptoPPConan(ConanFile):
 
     def build(self):
         env = ConfigureEnvironment(self.deps_cpp_info, self.settings)
-        if self.options.static:
-            self.run('%s make static' % env.command_line)
         if self.options.shared:
             self.run('%s make dynamic' % env.command_line)
+        else:
+            self.run('%s make static' % env.command_line)
 
     def package(self):
         self.copy(pattern="*.h", dst="include/cryptopp", src=".")
