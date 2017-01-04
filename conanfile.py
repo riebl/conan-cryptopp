@@ -7,6 +7,7 @@ class CryptoPPConan(ConanFile):
     name = "cryptopp"
     version = "5.6.5"
     url = "https://github.com/riebl/conan-cryptopp"
+    description = "Crypto++ Library is a free C++ class library of cryptographic schemes."
     settings = "os", "compiler", "build_type", "arch"
     license = "Boost Software License 1.0"
     options = {"static": [True, False], "shared": [True, False]}
